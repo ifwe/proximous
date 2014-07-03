@@ -11,5 +11,11 @@
     "express"
   ],
   "author": "Hector Virgen <hvirgen@tagged.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "sinon": "^1.10.2",
+    "mocha": "^1.20.1",
+    "blanket": "^1.1.6"
+  }
 }
