@@ -1,0 +1,15 @@
+{
+  "name": "proximity",
+  "version": "0.0.0",
+  "description": "Configurable proxy middleware for Express that proxies some requests to destination server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "proxy",
+    "express"
+  ],
+  "author": "Hector Virgen <hvirgen@tagged.com>",
+  "license": "ISC"
+}
