@@ -9,10 +9,10 @@ are not proxied will be passed through to the Express app.
     var proximous = require('proximous');
 
     // Create a proxy with target destination using factory function
-    var proxy = proximous('http://www.tagged.com:80');
+    var proxy = proximous('http://www.mysite.com:80');
     // or
     var proxy = proximous({
-        host: 'www.tagged.com',
+        host: 'www.mysite.com',
         secure: false,
         port: 80
     });
