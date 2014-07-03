@@ -17,7 +17,7 @@ are not proxied will be passed through to the Express app.
         port: 80
     });
 
-    // Configure whitelist of requests that will be proxied
+    // Configure proxy, uses LIFO when checking requests.
 
     // all requests to '/index.html' are proxied, including GET and POST
     proxy.all('/index.html');
@@ -35,9 +35,9 @@ are not proxied will be passed through to the Express app.
     proxy.get(/^\/css\/.*\.css$/); // same as '/css/*.css'
 
     // proxy everything!
-    proxy.get('*');
+    proxy.all('*');
 
-    // blacklist takes priority over whitelist
+    // blacklist ensures matched URLs are not proxied
     proxy.exclude.get('/profile/*');            // ensures that all profile pages are never proxied
     proxy.exclude.post('/submit-photo.html');   // POSTs to this URL will never be proxied
 
