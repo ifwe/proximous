@@ -1,5 +1,5 @@
 {
-  "name": "proximity",
+  "name": "proximous",
   "version": "0.0.0",
   "description": "Configurable proxy middleware for Express that proxies some requests to destination server.",
   "main": "index.js",

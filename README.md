@@ -1,16 +1,17 @@
-# Proximity - NPM Module
+# Proximous - NPM Module
 
-Proximity allows you to easily proxy some or all requests to a destination server.
+Proximous allows you to easily proxy some or all requests to a destination server. All requests that
+are not proxied will be passed through to the Express app.
 
 ## Usage
 
     // Load the module
-    var proximity = require('proximity');
+    var proximous = require('proximous');
 
     // Create a proxy with target destination using factory function
-    var proxy = proximity('http://www.tagged.com:80');
+    var proxy = proximous('http://www.tagged.com:80');
     // or
-    var proxy = proximity({
+    var proxy = proximous({
         host: 'www.tagged.com',
         secure: false,
         port: 80
