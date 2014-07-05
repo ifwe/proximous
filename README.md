@@ -20,26 +20,26 @@ are not proxied will be passed through to the Express app.
     // Configure proxy, uses LIFO when checking requests.
 
     // all requests to '/index.html' are proxied, including GET and POST
-    proxy.all('/index.html');
+    proxy.matchAll('/index.html');
 
     // proxy only GET requests that match URL
-    proxy.get('/home.html');
+    proxy.matchGet('/home.html');
 
     // proxy only POST requests that match URL
-    proxy.post('/register.html');
+    proxy.matchPost('/register.html');
 
     // proxy using wildcards
-    proxy.get('/css/*.css'); // matches '/css/styles.css' as well as '/css/subdir/morestyles.css'
+    proxy.matchGet('/css/*.css'); // matches '/css/styles.css' as well as '/css/subdir/morestyles.css'
 
     // proxy using regular expression
-    proxy.get(/^\/css\/.*\.css$/); // same as '/css/*.css'
+    proxy.matchGet(/^\/css\/.*\.css$/); // same as '/css/*.css'
 
     // proxy everything!
-    proxy.all('*');
+    proxy.matchAll('*');
 
     // blacklist ensures matched URLs are not proxied
-    proxy.exclude.get('/profile/*');            // ensures that all profile pages are never proxied
-    proxy.exclude.post('/submit-photo.html');   // POSTs to this URL will never be proxied
+    proxy.exclude.matchGet('/profile/*');            // ensures that all profile pages are never proxied
+    proxy.exclude.matchPost('/submit-photo.html');   // POSTs to this URL will never be proxied
 
     // Once configured, set up proxy as middleware, preferably before all other middleware
 
