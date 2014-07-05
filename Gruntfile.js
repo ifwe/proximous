@@ -7,12 +7,24 @@ module.exports = function(grunt) {
     // NPM tasks, alphabetical
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-docco');
     grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.initConfig({
         // Clean
         clean: {
+            docs: ['docs'],
             coverage: ['test/coverage.html']
+        },
+
+        // Documentation
+        docco: {
+            main: {
+                src: ['lib/**/*.js'],
+                options: {
+                    output: 'docs/'
+                }
+            }
         },
 
         // Server-side mocha tests
@@ -77,4 +89,7 @@ module.exports = function(grunt) {
 
     // Generates test coverage report
     grunt.registerTask('coverage', 'Unit test code coverage', ['clean:coverage', 'mochaTest:instrument', 'mochaTest:coverage']);
+
+    // Generates documentation
+    grunt.registerTask('docs', 'Generate documentation', ['clean:docs', 'docco:main']);
 };
