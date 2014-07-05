@@ -1,4 +1,4 @@
-var Proxy = require(LIB_DIR + '/Proxy.js');
+var Proxy = require(LIB_DIR + '/Proxy');
 
 describe('Proxy', function() {
     beforeEach(function() {
@@ -50,9 +50,9 @@ describe('Proxy', function() {
             this.proxy.isMatch('get', '/foo/bar.html').should.be.true;
         });
 
-        it('matches get with regex', function() {
-            this.proxy.matchGet(/bar/);
-            this.proxy.isMatch('get', '/foo/bar.html').should.be.true;
+        it('matches post with regex', function() {
+            this.proxy.matchPost(/bar/);
+            this.proxy.isMatch('post', '/foo/bar.html').should.be.true;
         });
     });
 });
