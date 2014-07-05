@@ -41,8 +41,7 @@ are not proxied will be passed through to the Express app.
     proxy.exclude.matchGet('/profile/*');            // ensures that all profile pages are never proxied
     proxy.exclude.matchPost('/submit-photo.html');   // POSTs to this URL will never be proxied
 
-    // Once configured, set up proxy as middleware, preferably before all other middleware
-
+    // Once configured, set up proxy as middleware
     var http = require('http');
     var express = require('express');
     var app = express();
