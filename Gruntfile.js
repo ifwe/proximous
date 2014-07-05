@@ -1,4 +1,9 @@
+var path = require('path');
+
 module.exports = function(grunt) {
+    var TEST_RUNNER = path.join(process.cwd(), 'test', 'test_runner');
+    var ALL_TESTS = 'test/**/*_test.js';
+
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-test');
 
@@ -8,40 +13,40 @@ module.exports = function(grunt) {
             // Runs all tests
             test: {
                 options: {
-                    require: './test/test_runner',
+                    require: TEST_RUNNER,
                     reporter: 'spec',
                     ui: 'bdd',
                     timeout: 2000,
                     recursive: true,
                     clearRequireCache: true
                 },
-                src: ['test/**/*_test.js']
+                src: [ALL_TESTS]
             },
 
             // Instruments code for reporting test coverage
             instrument: {
                 options: {
-                    require: './test/test_runner',
+                    require: TEST_RUNNER,
                     reporter: 'spec',
                     ui: 'bdd',
                     timeout: 2000,
                     recursive: true,
                 },
-                src: ['test/**/*_test.js']
+                src: [ALL_TESTS]
             },
 
             // Reports test coverage
             coverage: {
                 options: {
-                    require: './test/test_runner',
+                    require: TEST_RUNNER,
                     reporter: 'html-cov',
                     ui: 'bdd',
                     timeout: 2000,
                     recursive: true,
                     quiet: true,
-                    captureFile: 'coverage.html'
+                    captureFile: 'test/coverage.html'
                 },
-                src: ['test/**/*_test.js']
+                src: [ALL_TESTS]
             }
         },
 
@@ -61,8 +66,8 @@ module.exports = function(grunt) {
     });
 
     // Runs all unit tests
-    grunt.registerTask('test', ['mochaTest:test']);
+    grunt.registerTask('test', 'All unit tests', ['mochaTest:test']);
 
     // Generates test coverage report
-    grunt.registerTask('coverage', ['mochaTest:instrument', 'mochaTest:coverage']);
+    grunt.registerTask('coverage', 'Unit test code coverage', ['mochaTest:instrument', 'mochaTest:coverage']);
 };
