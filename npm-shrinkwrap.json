@@ -4,7 +4,7 @@
   "dependencies": {
     "blanket": {
       "version": "1.1.6",
-      "from": "blanket@",
+      "from": "blanket@^1.1.6",
       "dependencies": {
         "esprima": {
           "version": "1.0.4",
@@ -28,7 +28,7 @@
     },
     "chai": {
       "version": "1.9.1",
-      "from": "chai@",
+      "from": "chai@^1.9.1",
       "dependencies": {
         "assertion-error": {
           "version": "1.0.0",
@@ -48,7 +48,7 @@
     },
     "grunt": {
       "version": "0.4.5",
-      "from": "grunt@",
+      "from": "grunt@^0.4.5",
       "dependencies": {
         "async": {
           "version": "0.1.22",
@@ -128,7 +128,7 @@
         },
         "minimatch": {
           "version": "0.2.14",
-          "from": "minimatch@~0.2.12",
+          "from": "minimatch@~0.2.11",
           "dependencies": {
             "lru-cache": {
               "version": "2.5.0",
@@ -152,7 +152,7 @@
         },
         "rimraf": {
           "version": "2.2.8",
-          "from": "rimraf@~2.2.8"
+          "from": "rimraf@^2.2.8"
         },
         "lodash": {
           "version": "0.9.2",
@@ -220,7 +220,7 @@
     },
     "grunt-contrib-clean": {
       "version": "0.5.0",
-      "from": "grunt-contrib-clean@",
+      "from": "grunt-contrib-clean@^0.5.0",
       "dependencies": {
         "rimraf": {
           "version": "2.2.8",
@@ -230,7 +230,7 @@
     },
     "grunt-contrib-watch": {
       "version": "0.6.1",
-      "from": "grunt-contrib-watch@",
+      "from": "grunt-contrib-watch@^0.6.1",
       "dependencies": {
         "gaze": {
           "version": "0.5.1",
@@ -322,7 +322,7 @@
     },
     "grunt-mocha-test": {
       "version": "0.11.0",
-      "from": "grunt-mocha-test@",
+      "from": "grunt-mocha-test@^0.11.0",
       "dependencies": {
         "hooker": {
           "version": "0.2.3",
@@ -342,8 +342,7 @@
               "dependencies": {
                 "minimist": {
                   "version": "0.0.8",
-                  "from": "minimist@0.0.8",
-                  "resolved": "http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz"
+                  "from": "minimist@0.0.8"
                 }
               }
             },
@@ -359,14 +358,23 @@
         }
       }
     },
+    "http-proxy": {
+      "version": "1.1.4",
+      "from": "http-proxy@",
+      "dependencies": {
+        "eventemitter3": {
+          "version": "0.1.2",
+          "from": "eventemitter3@*"
+        }
+      }
+    },
     "mocha": {
       "version": "1.20.1",
-      "from": "mocha@",
+      "from": "mocha@^1.20.1",
       "dependencies": {
         "commander": {
           "version": "2.0.0",
-          "from": "commander@2.0.0",
-          "resolved": "http://registry.npmjs.org/commander/-/commander-2.0.0.tgz"
+          "from": "commander@2.0.0"
         },
         "growl": {
           "version": "1.7.0",
@@ -378,13 +386,11 @@
           "dependencies": {
             "commander": {
               "version": "0.6.1",
-              "from": "commander@0.6.1",
-              "resolved": "http://registry.npmjs.org/commander/-/commander-0.6.1.tgz"
+              "from": "commander@0.6.1"
             },
             "mkdirp": {
               "version": "0.3.0",
-              "from": "mkdirp@0.3.0",
-              "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
+              "from": "mkdirp@0.3.0"
             }
           }
         },
@@ -398,20 +404,17 @@
           "dependencies": {
             "ms": {
               "version": "0.6.2",
-              "from": "ms@0.6.2",
-              "resolved": "http://registry.npmjs.org/ms/-/ms-0.6.2.tgz"
+              "from": "ms@0.6.2"
             }
           }
         },
         "mkdirp": {
           "version": "0.3.5",
-          "from": "mkdirp@0.3.5",
-          "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
+          "from": "mkdirp@0.3.5"
         },
         "glob": {
           "version": "3.2.3",
           "from": "glob@3.2.3",
-          "resolved": "http://registry.npmjs.org/glob/-/glob-3.2.3.tgz",
           "dependencies": {
             "minimatch": {
               "version": "0.2.14",
@@ -441,7 +444,7 @@
     },
     "sinon": {
       "version": "1.10.2",
-      "from": "sinon@",
+      "from": "sinon@^1.10.2",
       "dependencies": {
         "formatio": {
           "version": "1.0.2",
@@ -459,7 +462,7 @@
           "dependencies": {
             "inherits": {
               "version": "2.0.1",
-              "from": "inherits@2.0.1"
+              "from": "inherits@2"
             }
           }
         }
