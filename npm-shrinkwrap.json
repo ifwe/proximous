@@ -218,6 +218,16 @@
         }
       }
     },
+    "grunt-contrib-clean": {
+      "version": "0.5.0",
+      "from": "grunt-contrib-clean@",
+      "dependencies": {
+        "rimraf": {
+          "version": "2.2.8",
+          "from": "rimraf@~2.2.1"
+        }
+      }
+    },
     "grunt-contrib-watch": {
       "version": "0.6.1",
       "from": "grunt-contrib-watch@",

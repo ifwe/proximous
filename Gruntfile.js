@@ -4,10 +4,17 @@ module.exports = function(grunt) {
     var TEST_RUNNER = path.join(process.cwd(), 'test', 'test_runner');
     var ALL_TESTS = 'test/**/*_test.js';
 
+    // NPM tasks, alphabetical
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.initConfig({
+        // Clean
+        clean: {
+            coverage: ['test/coverage.html']
+        },
+
         // Server-side mocha tests
         mochaTest: {
             // Runs all tests
@@ -69,5 +76,5 @@ module.exports = function(grunt) {
     grunt.registerTask('test', 'All unit tests', ['mochaTest:test']);
 
     // Generates test coverage report
-    grunt.registerTask('coverage', 'Unit test code coverage', ['mochaTest:instrument', 'mochaTest:coverage']);
+    grunt.registerTask('coverage', 'Unit test code coverage', ['clean:coverage', 'mochaTest:instrument', 'mochaTest:coverage']);
 };
