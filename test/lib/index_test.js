@@ -1,3 +1,4 @@
+/*jshint expr: true*/
 var proximous = require(LIB_DIR);
 
 describe('Proximous', function() {
@@ -15,7 +16,6 @@ describe('Proximous', function() {
     });
 
     it('contains a url argument', function() {
-
         this.proxy.should.have.property('url', 'http://foo.bar');
     });
 });

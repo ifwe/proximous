@@ -1,3 +1,4 @@
+/*jshint expr: true*/
 var Proxy = require(LIB_DIR + '/Proxy');
 
 describe('Proxy', function() {
@@ -20,7 +21,7 @@ describe('Proxy', function() {
         it('doesn\'t match get with exact string match', function() {
             this.proxy.matchGet('/home.html');
             this.proxy.isMatch('get', '/index.html').should.be.false;
-        });       
+        });
 
         it('returns false if type doesn\'t match', function() {
             this.proxy.matchGet('/index.html');
