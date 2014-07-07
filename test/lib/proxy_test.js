@@ -62,6 +62,29 @@ describe('Proxy', function() {
             this.proxy.matchPost(/bar/);
             this.proxy.isMatch('POST', '/foo/bar.html').should.be.true;
         });
+
+        describe('excludes', function() {
+            it('uses last in, first out (LIFO) matching GET', function() {
+                this.proxy.matchGet(/.*/);
+                this.proxy.excludeGet('/foo');
+                this.proxy.isMatch('GET', '/bar').should.be.true;
+                this.proxy.isMatch('GET', '/foo').should.be.false;
+            });
+
+            it('uses last in, first out (LIFO) matching POST', function() {
+                this.proxy.matchPost(/.*/);
+                this.proxy.excludePost('/foo');
+                this.proxy.isMatch('POST', '/bar').should.be.true;
+                this.proxy.isMatch('POST', '/foo').should.be.false;
+            });
+
+            it('uses last in, first out (LIFO) matching ALL', function() {
+                this.proxy.matchAll(/.*/);
+                this.proxy.excludeAll('/foo');
+                this.proxy.isMatch('GET', '/bar').should.be.true;
+                this.proxy.isMatch('GET', '/foo').should.be.false;
+            });
+        });
     });
 
     describe('middleware()', function() {
@@ -72,6 +95,10 @@ describe('Proxy', function() {
             this.proxy.matchGet(/foo/);
             this.proxy.matchPost(/bar/);
             this.proxy.matchAll(/baz/);
+            this.proxy.matchAll(/derp/);
+            this.proxy.excludeGet('/exclude/get/derp');
+            this.proxy.excludePost('/exclude/post/derp');
+            this.proxy.excludeAll('/exclude/all/derp');
             this.middleware = this.proxy.middleware();
             this.res = {};
             this.nextSpy = sinon.spy();
@@ -81,9 +108,11 @@ describe('Proxy', function() {
             { method: 'GET', url: '/get' },
             { method: 'GET', url: '/anything/foo/anything' },
             { method: 'GET', url: '/anything/baz/anything' },
+            { method: 'GET', url: '/anything/derp/anything' },
             { method: 'POST', url: '/post' },
             { method: 'POST', url: '/anything/bar/anything' },
             { method: 'POST', url: '/anything/baz/anything' },
+            { method: 'POST', url: '/anything/derp/anything' },
             { method: 'GET', url: '/all' },
             { method: 'POST', url: '/all' }
         ];
@@ -94,7 +123,11 @@ describe('Proxy', function() {
             { method: 'GET', url: '/anything/bar/anything' }, // url does not match regex for GET
             { method: 'POST', url: '/nomatch' }, // url does not match
             { method: 'POST', url: '/get' }, // method does not match
-            { method: 'POST', url: '/anything/foo/anything' } // url does not match regex for POST
+            { method: 'POST', url: '/anything/foo/anything' }, // url does not match regex for POST
+            { method: 'GET', url: '/exclude/get/derp' }, // url is excluded for GET
+            { method: 'POST', url: '/exclude/post/derp' }, // url is excluded for POST
+            { method: 'GET', url: '/exclude/all/derp' }, // url is excluded for ALL
+            { method: 'POST', url: '/exclude/all/derp' }, // url is excluded for ALL
         ];
 
         matchingRequests.forEach(function(req) {
