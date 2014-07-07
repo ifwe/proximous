@@ -38,8 +38,9 @@ are not proxied will be passed through to the Express app.
     proxy.matchAll('*');
 
     // blacklist ensures matched URLs are not proxied
-    proxy.exclude.matchGet('/profile/*');            // ensures that all profile pages are never proxied
-    proxy.exclude.matchPost('/submit-photo.html');   // POSTs to this URL will never be proxied
+    proxy.excludeGet('/profile/*');            // ensures that all profile pages are never proxied
+    proxy.excludePost('/submit-photo.html');   // POSTs to this URL will never be proxied
+    proxy.excludeAll('/chat.html');            // GETs and POSTs to this URL will never be proxied
 
     // Once configured, set up proxy as middleware
     var http = require('http');
