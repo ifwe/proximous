@@ -65,21 +65,21 @@ describe('Proxy', function() {
 
         describe('excludes', function() {
             it('uses last in, first out (LIFO) matching GET', function() {
-                this.proxy.matchGet(/.*/);
+                this.proxy.matchGet('**');
                 this.proxy.excludeGet('/foo');
                 this.proxy.isMatch('GET', '/bar').should.be.true;
                 this.proxy.isMatch('GET', '/foo').should.be.false;
             });
 
             it('uses last in, first out (LIFO) matching POST', function() {
-                this.proxy.matchPost(/.*/);
+                this.proxy.matchPost('**');
                 this.proxy.excludePost('/foo');
                 this.proxy.isMatch('POST', '/bar').should.be.true;
                 this.proxy.isMatch('POST', '/foo').should.be.false;
             });
 
             it('uses last in, first out (LIFO) matching ALL', function() {
-                this.proxy.matchAll(/.*/);
+                this.proxy.matchAll('**');
                 this.proxy.excludeAll('/foo');
                 this.proxy.isMatch('GET', '/bar').should.be.true;
                 this.proxy.isMatch('GET', '/foo').should.be.false;
@@ -92,6 +92,12 @@ describe('Proxy', function() {
             this.proxy.matchGet('/get');
             this.proxy.matchPost('/post');
             this.proxy.matchAll('/all');
+            this.proxy.matchGet('/glob/get/*/index.html');
+            this.proxy.matchPost('/glob/post/*/index.html');
+            this.proxy.matchAll('/glob/all/*/index.html');
+            this.proxy.matchGet('/glob2/get/**/index.html');
+            this.proxy.matchPost('/glob2/post/**/index.html');
+            this.proxy.matchAll('/glob2/all/**/index.html');
             this.proxy.matchGet(/foo/);
             this.proxy.matchPost(/bar/);
             this.proxy.matchAll(/baz/);
@@ -114,7 +120,17 @@ describe('Proxy', function() {
             { method: 'POST', url: '/anything/baz/anything' },
             { method: 'POST', url: '/anything/derp/anything' },
             { method: 'GET', url: '/all' },
-            { method: 'POST', url: '/all' }
+            { method: 'POST', url: '/all' },
+
+            // Globs
+            { method: 'GET', url: '/glob/get/anything/index.html' },
+            { method: 'POST', url: '/glob/post/anything/index.html' },
+            { method: 'GET', url: '/glob/all/anything/index.html' },
+            { method: 'POST', url: '/glob/all/anything/index.html' },
+            { method: 'GET', url: '/glob2/get/anything/anything/anything/index.html' },
+            { method: 'POST', url: '/glob2/post/anything/anything/anything/index.html' },
+            { method: 'GET', url: '/glob2/all/anything/anything/anything/index.html' },
+            { method: 'POST', url: '/glob2/all/anything/anything/anything/index.html' }
         ];
 
         var nonMatchingRequests = [
@@ -128,6 +144,10 @@ describe('Proxy', function() {
             { method: 'POST', url: '/exclude/post/derp' }, // url is excluded for POST
             { method: 'GET', url: '/exclude/all/derp' }, // url is excluded for ALL
             { method: 'POST', url: '/exclude/all/derp' }, // url is excluded for ALL
+
+            // Globs
+            { method: 'GET', url: '/glob/get/anything/anything/anything/index.html' }, // Not a multi-glob
+            { method: 'POST', url: '/glob/post/anything/anything/anything/index.html' }, // Not a multi-glob
         ];
 
         matchingRequests.forEach(function(req) {
