@@ -1,12 +1,12 @@
 /*jshint expr: true*/
-var Proxy = require(LIB_DIR + '/Proxy');
+var Proximous = require(LIB_DIR + '/Proximous');
 var httpProxy = require('http-proxy');
 
-describe('Proxy', function() {
+describe('Proximous', function() {
     beforeEach(function() {
         this.proxyStub = { web: sinon.spy() };
         sinon.stub(httpProxy, 'createProxyServer').returns(this.proxyStub);
-        this.proxy = new Proxy('http://foo.bar');
+        this.proxy = new Proximous('http://foo.bar');
     });
 
     afterEach(function() {

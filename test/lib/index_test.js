@@ -2,7 +2,6 @@
 var proximous = require(LIB_DIR);
 
 describe('Proximous', function() {
-
     beforeEach(function() {
         this.proxy = proximous('http://foo.bar');
     });
