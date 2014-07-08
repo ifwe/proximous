@@ -167,4 +167,65 @@ describe('Proximous', function() {
             });
         });
     });
+
+    describe('events', function() {
+        beforeEach(function() {
+            this.proxy.matchGet('/get');
+            this.middleware = this.proxy.middleware();
+        });
+
+        describe('on match', function() {
+            beforeEach(function() {
+                this.req = { method: 'GET', url: '/get' };
+                this.res = {};
+            });
+
+            it('emits proxy:match event', function(done) {
+                var handler = function(_req, _res) {
+                    _req.should.equal(this.req);
+                    _res.should.equal(this.res);
+                    done();
+                }.bind(this);
+                this.proxy.onMatch(handler);
+                this.middleware(this.req, this.res);
+            });
+
+            it('does not emit proxy:exclude event', function(done) {
+                var handler = function(_req, _res) {
+                    done('proxy:exclude event should not have been emitted');
+                }.bind(this);
+                this.proxy.onNotMatch(handler);
+                this.middleware(this.req, this.res);
+                setTimeout(done, 10);
+            });
+        });
+
+        describe('on exclude', function() {
+            beforeEach(function() {
+                this.req = { method: 'GET', url: '/no-match' };
+                this.res = {};
+                this.nextSpy = sinon.spy();
+            });
+
+            it('emits proxy:exclude event when request does not match', function(done) {
+                var handler = function(_req, _res) {
+                    // console.log(_req, _res);
+                    _req.should.equal(this.req);
+                    _res.should.equal(this.res);
+                    done();
+                }.bind(this);
+                this.proxy.onNotMatch(handler);
+                this.middleware(this.req, this.res, this.nextSpy);
+            });
+
+            it('does not emit proxy:match event', function(done) {
+                var handler = function(_req, _res) {
+                    done('proxy:match event should not have been emitted');
+                }.bind(this);
+                this.proxy.onMatch(handler);
+                this.middleware(this.req, this.res, this.nextSpy);
+                setTimeout(done, 10);
+            });
+        });
+    });
 });

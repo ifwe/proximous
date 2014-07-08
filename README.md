@@ -42,6 +42,15 @@ are not proxied will be passed through to the Express app.
     proxy.excludePost('/submit-photo.html');   // POSTs to this URL will never be proxied
     proxy.excludeAll('/chat.html');            // GETs and POSTs to this URL will never be proxied
 
+    // Observe events
+    proxy.onMatch(function(req, res) {
+        // Will be called each time a request matches the proxy configuration
+    });
+
+    proxy.onNotMatch(function(req, res) {
+        // Will be called each time a request does not match the proxy configuration
+    });
+
     // Once configured, set up proxy as middleware
     var http = require('http');
     var express = require('express');
