@@ -51,6 +51,13 @@ are not proxied will be passed through to the Express app.
         // Will be called each time a request does not match the proxy configuration
     });
 
+    // Register callbacks to bypass rule matching (supports async!)
+    proxy.matchGet('/foo/bar', function(req, res, result) {
+        setTimeout(function() {
+            result(true); // or `false` to force a no-match
+        }, 100);
+    });
+
     // Once configured, set up proxy as middleware
     var http = require('http');
     var express = require('express');

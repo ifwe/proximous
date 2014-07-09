@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                     require: TEST_RUNNER,
                     reporter: 'spec',
                     ui: 'bdd',
-                    timeout: 2000,
+                    timeout: 200,
                     recursive: true,
                     clearRequireCache: true
                 },
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     require: TEST_RUNNER,
                     reporter: 'spec',
                     ui: 'bdd',
-                    timeout: 2000,
+                    timeout: 200,
                     recursive: true,
                 },
                 src: [ALL_TESTS]
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
                     require: TEST_RUNNER,
                     reporter: 'html-cov',
                     ui: 'bdd',
-                    timeout: 2000,
+                    timeout: 200,
                     recursive: true,
                     quiet: true,
                     captureFile: 'test/coverage.html'

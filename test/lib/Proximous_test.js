@@ -13,80 +13,6 @@ describe('Proximous', function() {
         httpProxy.createProxyServer.restore();
     });
 
-    describe('matchGet()', function() {
-        it('should be a function', function() {
-            this.proxy.matchGet.should.be.a('function');
-        });
-    });
-
-    describe('isMatch()', function() {
-        it('matches get with exact string match', function() {
-            this.proxy.matchGet('/index.html');
-            this.proxy.isMatch('GET', '/index.html').should.be.true;
-        });
-
-        it('doesn\'t match get with exact string match', function() {
-            this.proxy.matchGet('/home.html');
-            this.proxy.isMatch('GET', '/index.html').should.be.false;
-        });
-
-        it('returns false if type doesn\'t match', function() {
-            this.proxy.matchGet('/index.html');
-            this.proxy.isMatch('POST', '/index.html').should.be.false;
-        });
-
-        it('returns true if type and url matches any of the matchers', function() {
-            this.proxy.matchGet('/index.html');
-            this.proxy.matchGet('/index1.html');
-            this.proxy.matchGet('/index2.html');
-            this.proxy.isMatch('GET', '/index1.html').should.be.true;
-        });
-
-        it('matches post with exact string match', function() {
-            this.proxy.matchPost('/index.html');
-            this.proxy.isMatch('POST', '/index.html').should.be.true;
-        });
-
-        it('matches all with exact string match', function() {
-            this.proxy.matchAll('/index.html');
-            this.proxy.isMatch('POST', '/index.html').should.be.true;
-            this.proxy.isMatch('GET', '/index.html').should.be.true;
-        });
-
-        it('matches get with regex', function() {
-            this.proxy.matchGet(/bar/);
-            this.proxy.isMatch('GET', '/foo/bar.html').should.be.true;
-        });
-
-        it('matches post with regex', function() {
-            this.proxy.matchPost(/bar/);
-            this.proxy.isMatch('POST', '/foo/bar.html').should.be.true;
-        });
-
-        describe('excludes', function() {
-            it('uses last in, first out (LIFO) matching GET', function() {
-                this.proxy.matchGet('**');
-                this.proxy.excludeGet('/foo');
-                this.proxy.isMatch('GET', '/bar').should.be.true;
-                this.proxy.isMatch('GET', '/foo').should.be.false;
-            });
-
-            it('uses last in, first out (LIFO) matching POST', function() {
-                this.proxy.matchPost('**');
-                this.proxy.excludePost('/foo');
-                this.proxy.isMatch('POST', '/bar').should.be.true;
-                this.proxy.isMatch('POST', '/foo').should.be.false;
-            });
-
-            it('uses last in, first out (LIFO) matching ALL', function() {
-                this.proxy.matchAll('**');
-                this.proxy.excludeAll('/foo');
-                this.proxy.isMatch('GET', '/bar').should.be.true;
-                this.proxy.isMatch('GET', '/foo').should.be.false;
-            });
-        });
-    });
-
     describe('middleware()', function() {
         beforeEach(function() {
             this.proxy.matchGet('/get');
@@ -174,7 +100,7 @@ describe('Proximous', function() {
             this.middleware = this.proxy.middleware();
         });
 
-        describe('on match', function() {
+        describe('onMatch()', function() {
             beforeEach(function() {
                 this.req = { method: 'GET', url: '/get' };
                 this.res = {};
@@ -200,14 +126,14 @@ describe('Proximous', function() {
             });
         });
 
-        describe('on exclude', function() {
+        describe('onNotMatch()', function() {
             beforeEach(function() {
                 this.req = { method: 'GET', url: '/no-match' };
                 this.res = {};
                 this.nextSpy = sinon.spy();
             });
 
-            it('emits proxy:exclude event when request does not match', function(done) {
+            it('emits proxy:exclude event', function(done) {
                 var handler = function(_req, _res) {
                     // console.log(_req, _res);
                     _req.should.equal(this.req);
@@ -226,6 +152,41 @@ describe('Proximous', function() {
                 this.middleware(this.req, this.res, this.nextSpy);
                 setTimeout(done, 10);
             });
+        });
+    });
+
+    describe('callbacks', function() {
+        it('proxies request if callback calls result with `true`', function(done) {
+            var _this = this;
+            var req = { method: 'GET', url: '/get' };
+            var res = {};
+            var nextSpy = sinon.spy();
+            this.proxy.matchGet('/get', function(req, res, result) {
+                setTimeout(function() {
+                    result(true);
+                    _this.proxyStub.web.calledOnce.should.be.true;
+                    _this.proxyStub.web.calledWith(req, res, { target: 'http://foo.bar' }).should.be.true;
+                    nextSpy.called.should.be.false;
+                    done();
+                });
+            });
+            var middleware = this.proxy.middleware();
+            middleware(req, res, nextSpy);
+        });
+
+        it('does not proxy request if callback calls result with `false`', function(done) {
+            var req = { method: 'GET', url: '/get' };
+            var res = {};
+            var nextSpy = sinon.spy();
+            this.proxy.matchGet('/get', function(req, res, result) {
+                setTimeout(function() {
+                    result(false);
+                    nextSpy.called.should.be.true;
+                    done();
+                });
+            });
+            var middleware = this.proxy.middleware();
+            middleware(req, res, nextSpy);
         });
     });
 });
