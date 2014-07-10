@@ -1,6 +1,10 @@
 {
   "name": "proximous",
   "version": "0.0.2",
+  "repository": {
+    "type" : "git",
+    "url": "http://github.com/tagged/proximous.git"
+  },
   "description": "Configurable proxy middleware for Express that proxies some requests to destination server.",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +14,7 @@
     "proxy",
     "express"
   ],
-  "author": "Hector Virgen <hvirgen@tagged.com>",
+  "author": "Nicholas Polkowske <npolksowske@tagged.com>",
   "license": "ISC",
   "devDependencies": {
     "chai": "^1.9.1",
