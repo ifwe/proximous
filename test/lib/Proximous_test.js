@@ -189,4 +189,16 @@ describe('Proximous', function() {
             middleware(req, res, nextSpy);
         });
     });
+
+    describe('https',function(){
+
+        it('passes options to create server',function(){
+            var options = {
+                foo: 'bar',
+            };
+            var proxy = new Proximous('/foo.com',options);
+            httpProxy.createProxyServer.called.should.be.true;
+            httpProxy.createProxyServer.lastCall.args[0].should.equal(options);
+        });
+    });
 });

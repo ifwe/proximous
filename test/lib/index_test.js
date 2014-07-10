@@ -1,13 +1,18 @@
 /*jshint expr: true*/
-var proximous = require(LIB_DIR);
+var factory = require(LIB_DIR);
+var Proximous = require(LIB_DIR + '/Proximous');
 
 describe('Proximous', function() {
     beforeEach(function() {
-        this.proxy = proximous('http://foo.bar');
+        this.options = {
+            foo:'bar'
+        };
+        factory.Proximous = sinon.spy();
+        this.proxy = factory('http://foo.bar',this.options);
     });
 
     it('is a function', function() {
-        proximous.should.be.a('function');
+        factory.should.be.a('function');
     });
 
     it('returns a proxy instance', function() {
@@ -15,6 +20,11 @@ describe('Proximous', function() {
     });
 
     it('contains a url argument', function() {
-        this.proxy.should.have.property('url', 'http://foo.bar');
+        factory.Proximous.lastCall.args[0].should.equal('http://foo.bar');
+    });
+
+    it('passes options as second argument to new proximous constructor',function(){
+        factory.Proximous.calledWithNew().should.be.true;
+        factory.Proximous.lastCall.args[1].should.equal(this.options);
     });
 });
