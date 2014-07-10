@@ -1,6 +1,6 @@
 {
   "name": "proximous",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Configurable proxy middleware for Express that proxies some requests to destination server.",
   "main": "lib/index.js",
   "scripts": {
