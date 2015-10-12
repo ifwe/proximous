@@ -1,9 +1,9 @@
 {
   "name": "proximous",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": {
     "type" : "git",
-    "url": "http://github.com/tagged/proximous.git"
+    "url": "http://github.com/ifwe/proximous.git"
   },
   "description": "Configurable proxy middleware for Express that proxies some requests to destination server.",
   "main": "lib/index.js",
@@ -17,17 +17,17 @@
   "author": "Nicholas Polkowske <npolksowske@tagged.com>",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^1.9.1",
-    "sinon": "^1.10.2",
-    "mocha": "^1.20.1",
-    "blanket": "^1.1.6",
-    "grunt-mocha-test": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-docco": "^0.3.3"
+    "chai": "*",
+    "sinon": "*",
+    "mocha": "*",
+    "blanket": "*",
+    "grunt-mocha-test": "*",
+    "grunt-contrib-watch": "*",
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-docco": "*"
   },
   "dependencies": {
-    "http-proxy": "^1.1.4"
+    "http-proxy": "1.11.2"
   }
 }
